@@ -2,7 +2,11 @@
   "name": "automation-demo",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "playwright:ui:chrome": "npx playwright test --ui --project=Chromium",
+    "playwright:ui:firefox": "npx playwright test --ui --project=Firefox",
+    "playwright:ui:webkit": "npx playwright test --ui --project=WebKit"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
