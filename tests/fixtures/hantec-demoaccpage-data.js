@@ -1,15 +1,18 @@
 module.exports = {
   // data to be used in the creation of a Hantec demo account
   english: {
+
     links: {
-      homePageLink: 'https://hmarkets.com',
+      demoPageLink: 'https://hmarkets.com/mt-demo-account/',
+      openAnAccountLink: 'https://hmarkets.com/live-account-pre-registration/',
+      tryaDemoLink: 'https://hmarkets.com/mt-demo-account/',
       retailLink: 'https://hmarkets.com/',
       institutionalLink: 'https://hmarkets.com/prime/',
       partnersLink: 'https://hpartners.com/',
-      balanceGuardLink: '/trade-with-us/balanceguard/',
-      hantecSocialLink: '/trading-platforms/hantec-social/',
-      sponsorshipsLink: '/company/sponsorships/',
-      contactusLink: '/company/contact-us/'
+      balanceGuardLink: 'https://hmarkets.com/trade-with-us/balanceguard/',
+      hantecSocialLink: 'https://hmarkets.com/trading-platforms/hantec-social/',
+      sponsorshipsLink: 'https://hmarkets.com/company/sponsorships/',
+      contactusLink: 'https://hmarkets.com/company/contact-us/'
     },
 
     text: {
@@ -30,6 +33,10 @@ module.exports = {
       tradingMenuLabel: 'Trading',
       companyMenuLabel: 'Company',
       partnersLabel: 'Partners',
+
+      // Button & CTA Labels
+      openAnAccountBtnLabel: 'Open an account',
+      loginBtnLabel: 'Login',
 
       //Language Country Labels
       languageBtnLabel: 'en',
@@ -55,18 +62,34 @@ module.exports = {
       submit: "Open a demo account",
     },
 
+    errorValidationText: {
+      leverageField: "Leverage is required",
+      demoAccSizeField: "Account size is required",
+      firstNameField: "First name is required",
+      lastNameField: "Last name is required",
+      emailField: "Email is required",
+      invalidEmail: "Invalid email",
+      countryField: "Country is required",
+      phoneNumberField: "Invalid phone number",
+      invalidEmailAddress: "321654979812!@3///123",
+      invalidPhoneNumber: "1231 231 23",
+    },
+
     // Browser Title
     BrowserTitle: {
-      homePageTitle: 'Open MetaTrader Demo Account Safely | Hantec Markets'
+      demoPageTitle: 'Open MetaTrader Demo Account Safely | Hantec Markets'
     },
   },
 
   hantecDemoAccData: {
+    leverageValue: '1:500',
+    demoAccSizeValue: '1000',
     firstName: 'Demo',
     lastName: 'Account',
     email: 'demoAccountEmail@gmail.com',
-    countryCode: 'Philippines',
+    country: 'PH',
     phoneNumber: '09489635750',
+    successmessage: 'Your submission was successful.',
   },
 
   countrySelectors: {

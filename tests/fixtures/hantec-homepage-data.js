@@ -37,13 +37,16 @@ module.exports = {
 
         links: {
             homePageLink: 'https://hmarkets.com',
+            openAnAccountLink: 'https://hmarkets.com/live-account-pre-registration/',
+            tryaDemoLink: 'https://hmarkets.com/mt-demo-account/',
+            loginLink: 'https://portal.hmarkets.com/en/login',
             retailLink: 'https://hmarkets.com/',
             institutionalLink: 'https://hmarkets.com/prime/',
             partnersLink: 'https://hpartners.com/',
-            balanceGuardLink: '/trade-with-us/balanceguard/',
-            hantecSocialLink: '/trading-platforms/hantec-social/',
-            sponsorshipsLink: '/company/sponsorships/',
-            contactusLink: '/company/contact-us/'
+            balanceGuardLink: 'https://hmarkets.com/trade-with-us/balanceguard/',
+            hantecSocialLink: 'https://hmarkets.com/trading-platforms/hantec-social/',
+            sponsorshipsLink: 'https://hmarkets.com/company/sponsorships/',
+            contactusLink: 'https://hmarkets.com/company/contact-us/'
         }
     },
 

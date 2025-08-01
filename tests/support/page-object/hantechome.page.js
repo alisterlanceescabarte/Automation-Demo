@@ -1,4 +1,5 @@
 const { expect } = require('@playwright/test');
+const test = require('node:test');
 
 class hantechomePage {
     constructor(page) {
@@ -27,7 +28,7 @@ class hantechomePage {
 
     async navigateTo(pageLink) {
         // Navigate to the specified language selector link
-        await this.page.goto(pageLink, { waitUntil: 'domcontentloaded' });
+        await this.page.goto(pageLink, { waitUntil: 'load' });
     }
 
     async validateOnPage(pageLink) {
@@ -35,33 +36,78 @@ class hantechomePage {
         await expect(this.page).toHaveURL(pageLink);
     }
 
-    async verifyWebElements(pageTitle, languageBtnText) {
+    async verifyWebElements(testObject, pageTitle, languageBtnText) {
         const title = await this.page.title();
-        await expect(title).toBe(pageTitle);
-        await expect(this.retailBtn).toBeVisible();
-        await expect(this.insitutionalBtn).toBeVisible();
-        await expect(this.partnersBtn).toBeVisible();
-        await expect(this.balanceGuardBtn).toBeVisible();
-        await expect(this.hantecSocialBtn).toBeVisible();
-        await expect(this.sponsorshipsBtn).toBeVisible();
-        await expect(this.contactusBtn).toBeVisible();
-        await expect(this.languageButton(languageBtnText)).toBeVisible();
-        await expect(this.header).toBeVisible();
-        await expect(this.marketsMenu).toBeVisible();
-        await expect(this.platformsMenu).toBeVisible();
-        await expect(this.toolsMenu).toBeVisible();
-        await expect(this.educationMenu).toBeVisible();
-        await expect(this.tradingMenu).toBeVisible();
-        await expect(this.companyMenu).toBeVisible();
-        await expect(this.partnersMenu).toBeVisible();
-        await expect(this.openAnAccountBtn).toBeVisible();
-        await expect(this.loginBtn).toBeVisible();
-        await expect(this.OpenAnAccountBtn2).toBeVisible();
-        await expect(this.demoAccountBtn).toBeVisible();
+        await testObject.step(`Verify page title is "${pageTitle}"`, async () => {
+            await expect(this.page).toHaveTitle(pageTitle);
+        });
+        await testObject.step('Expect Retail button to be visible', async () => {
+            await expect(this.retailBtn).toBeVisible();
+        });
+        await testObject.step('Expect Institutional button to be visible', async () => {
+            await expect(this.insitutionalBtn).toBeVisible();
+        });
+        await testObject.step('Expect Partners button to be visible', async () => {
+            await expect(this.partnersBtn).toBeVisible();
+        });
+        await testObject.step('Expect Balance Guard button to be visible', async () => {
+            await expect(this.balanceGuardBtn).toBeVisible();
+        });
+        await testObject.step('Expect Hantec Social button to be visible', async () => {
+            await expect(this.hantecSocialBtn).toBeVisible();
+        });
+        await testObject.step('Expect Sponsorships button to be visible', async () => {
+            await expect(this.sponsorshipsBtn).toBeVisible();
+        });
+        await testObject.step('Expect Contact Us button to be visible', async () => {
+            await expect(this.contactusBtn).toBeVisible();
+        });
+        await testObject.step('Expect language button to be visible', async () => {
+            await expect(this.languageButton(languageBtnText)).toBeVisible();
+        });
+        await testObject.step('Expect Open an Account button to be visible', async () => {
+            await expect(this.OpenAnAccountBtn2).toBeVisible();
+        });
+        await testObject.step('Expect Header Text to be visible', async () => {
+            await expect(this.header).toBeVisible();
+        });
+        await testObject.step('Expect Markets menu to be visible', async () => {
+            await expect(this.marketsMenu).toBeVisible();
+        });
+        await testObject.step('Expect Platforms menu to be visible', async () => {
+            await expect(this.platformsMenu).toBeVisible();
+        });
+        await testObject.step('Expect Tools menu to be visible', async () => {
+            await expect(this.toolsMenu).toBeVisible();
+        });
+        await testObject.step('Expect Education menu to be visible', async () => {
+            await expect(this.educationMenu).toBeVisible();
+        });
+        await testObject.step('Expect Trading menu to be visible', async () => {
+            await expect(this.tradingMenu).toBeVisible();
+        });
+        await testObject.step('Expect Company menu to be visible', async () => {
+            await expect(this.companyMenu).toBeVisible();
+        });
+        await testObject.step('Expect Partners menu to be visible', async () => {
+            await expect(this.partnersMenu).toBeVisible();
+        });
+        await testObject.step('Expect Open An Account button to be visible', async () => {
+            await expect(this.openAnAccountBtn).toBeVisible();
+        });
+        await testObject.step('Expect Login button to be visible', async () => {
+            await expect(this.loginBtn).toBeVisible();
+        });
+        await testObject.step('Expect Open An Account button in the header to be visible', async () => {
+            await expect(this.OpenAnAccountBtn2).toBeVisible();
+        });
+        await testObject.step('Expect Demo Account button to be visible', async () => {
+            await expect(this.demoAccountBtn).toBeVisible();
+        });
     }
 
     // Accepts text-labels and links from fixture
-    async verifyHomepageLinksUsingFixture(textSection, linkSection) {
+    async verifyHomepageLinksUsingFixture(test, textSection, linkSection) {
         // Build mapping from fixture
         const labelToLinkMap = {
             [textSection.retailLabel]: linkSection.retailLink,
@@ -71,15 +117,27 @@ class hantechomePage {
             [textSection.hantecSocialLabel]: linkSection.hantecSocialLink,
             [textSection.sponsorshipsLabel]: linkSection.sponsorshipsLink,
             [textSection.contactusLabel]: linkSection.contactusLink,
+            [textSection.openAnAccountBtnLabel]: linkSection.openAnAccountLink,
+            [textSection.tryaDemoBtnLabel]: linkSection.tryaDemoLink,
+            [textSection.loginBtnLabel]: linkSection.loginLink
         };
 
         for (const [label, expectedHref] of Object.entries(labelToLinkMap)) {
-            const locator = this.page.getByRole('link', { name: label });
-            const actualHref = await locator.getAttribute('href');
-            expect(actualHref, `Incorrect href for "${label}"`).toBe(expectedHref);
+            await test.step(`Expect link for "${label}" to be "${expectedHref}"`, async () => {
+                const locator = this.page.getByRole('link', { name: label }).first();
+                const actualHref = await locator.getAttribute('href');
+                const fullHref = new URL(actualHref, await this.page.url()).toString();
+
+                console.log(`${label} → Expected: ${expectedHref} | Actual: ${fullHref}`);
+                expect(fullHref).toBe(expectedHref);
+            });
+            // const locator = this.page.getByRole('link', { name: label }).first();
+            // const actualHref = await locator.getAttribute('href');
+            // // expect(actualHref, `Incorrect href for "${label}"`).toBe(expectedHref);
+            // expect(actualHref).toBe(expectedHref);
         }
 
-        console.log('✅ All homepage links matched the expected hrefs.');
+        console.log('All homepage links matched the expected hrefs.');
     }
 
     languageButton(languageBtnText) {

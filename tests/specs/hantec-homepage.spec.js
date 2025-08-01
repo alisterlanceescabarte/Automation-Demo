@@ -25,14 +25,14 @@ test.describe('Hantec HomePage Test Verification', () => {
             await homePage.validateOnPage(english.links.homePageLink);
         });
         await test.step('And all key web elements and the browser tab title should be displayed correctly', async () => {
-            await homePage.verifyWebElements(english.BrowserTitle.homePageTitle, english.text.languageBtnLabel, english.text.languageOptLabel);
+            await homePage.verifyWebElements(test, english.BrowserTitle.homePageTitle, english.text.languageBtnLabel);
         });
     });
 
     test('Verify all links on key web elements', async ({ page }) => {
         await test.step('Then all links associated with key web elements should be valid and functional', async () => {
             // Pass only relevant parts of the fixture
-            await homePage.verifyHomepageLinksUsingFixture(english.text, english.links);
+            await homePage.verifyHomepageLinksUsingFixture(test, english.text, english.links);
         });
     });
 
